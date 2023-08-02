@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pricing Module</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: orange;
+            margin: 20px;
+        }
+        h1 {
+            color: white;
+            align-item: center;
+            margin-left: 40%;
+        }
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: gray;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            background-color: white;
+            margin-left: 40%;
+            margin-right: 45%;
+            padding-left: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pricing Module</h1>
+    <form id="pricingForm">
+        <label for="dbp">Distance Base Price:</label>
+        <input type="number" name="dbp" id="dbp" value="80">
+
+        <label for="dap">Distance Additional Price:</label>
+        <input type="number" name="dap" id="dap" value="30">
+
+        <label for="tmf">Time Multiplier Factor:</label>
+        <input type="number" name="tmf" id="tmf" value="1.25">
+
+        <label for="wc">Waiting Charges:</label>
+        <input type="number" name="wc" id="wc" value="5">
+
+        <label for="distance">Distance:</label>
+        <input type="number" name="distance" id="distance" value="0">
+
+        <label for="time">Time:</label>
+        <input type="number" name="time" id="time" value="0">
+
+        <label for="waiting_time">Waiting Time:</label>
+        <input type="number" name="waiting_time" id="waiting_time" value="0">
+
+        <input type="submit" value="Calculate Pricing">
+        <span id="priceResult"></span>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        // JavaScript code to handle form submission and API request
+        const form = document.getElementById('pricingForm');
+        const resultDiv = document.getElementById('result');
+    
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent default form submission
+    
+            // Get form data
+            const formData = new FormData(form);
+    
+            try {
+                // Send POST request to API
+                const response = await fetch('/calculate_pricing/', {
+                    method: 'POST',
+                    body: formData,
+                });
+    
+                if (response.ok) {
+                    // Parse response JSON and display calculated price
+                    const data = await response.json();
+                    resultDiv.textContent = `Calculated Price: ${data.price}`;
+                } else {
+                    resultDiv.textContent = 'Failed to calculate pricing.';
+                }
+            } catch (error) {
+                console.error('Error occurred:', error);
+                resultDiv.textContent = 'An error occurred while calculating pricing.';
+            }
+        });
+    </script> 
+    
+</body>
+</html>

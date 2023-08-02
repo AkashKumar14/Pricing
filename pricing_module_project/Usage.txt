@@ -1,0 +1,16 @@
+Usage
+Admin Panel
+To access the Django admin panel, go to http://127.0.0.1:8000/admin/.
+Log in using the superuser credentials created earlier.
+Use the admin panel to manage pricing configurations and view logs.
+Main Page
+Go to http://127.0.0.1:8000/ to access the main page of the application.
+Use the form to enter the pricing parameters for distance base price (DBP), distance additional price (DAP), time multiplier factor (TMF), waiting charges (WC), distance, time, and waiting time.
+Click the "Calculate Pricing" button to see the calculated price displayed next to the button.
+API Endpoints
+The project exposes the following API endpoint:
+
+POST /calculate_pricing/: Calculate pricing based on the provided parameters. Parameters should be sent as form data. Returns a JSON response with the calculated price.
+Contributing
+Contributions to the project are welcome. If you find any issues or want to add new features, please create a pull request.
+
